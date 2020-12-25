@@ -1,12 +1,18 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 
+import api from './services/api';
 import Header from './components/Header';
 import './App.css'
-import BackImage from './assets/background.jpeg';
 
 const App = () => {
 
-  const [propjects, setProjects] = useState(['Development of App', 'front-end mobile']);
+  const [propjects, setProjects] = useState([]);
+
+  useEffect(() => {
+    api.get('projects').then(response => {
+      setProjects(response.data);
+    }).catch(e => console.log('Something went wrong, try again', e));
+  },[])
 
   const handleNewPropject = () => {
     setProjects([...propjects, `New propject ${new Date()}`]);
@@ -14,12 +20,11 @@ const App = () => {
   return (
     <>
       <Header title="Project" />
-      <img width={300} src={BackImage} />
       <ul>
         {
           propjects.map(propject => (
-            <li key={propject}>
-              {propject}
+            <li key={propject.id}>
+              {propject.title}
             </li>
           ))
         }
