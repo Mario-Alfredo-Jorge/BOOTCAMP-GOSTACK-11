@@ -10,12 +10,20 @@ const App = () => {
 
   useEffect(() => {
     api.get('projects').then(response => {
+      console.log(response)
       setProjects(response.data);
     }).catch(e => console.log('Something went wrong, try again', e));
   },[])
 
-  const handleNewPropject = () => {
-    setProjects([...propjects, `New propject ${new Date()}`]);
+  const handleNewPropject = async () => {
+    // setProjects([...propjects, `New propject ${new Date()}`]);
+
+   const response = await api.post('projects', {
+      title: `New propject ${new Date()}`,
+      owner: 'Mario alfredo jorge',
+    })
+
+    setProjects([...propjects, response.data])
   }
   return (
     <>
@@ -25,6 +33,7 @@ const App = () => {
           propjects.map(propject => (
             <li key={propject.id}>
               {propject.title}
+              <span>{propject.owner}</span>
             </li>
           ))
         }

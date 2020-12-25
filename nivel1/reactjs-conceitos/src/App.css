@@ -24,3 +24,6 @@ button {
 button:hover {
   background: #a04be6;
 }
+span {
+  margin-left: 8px;
+}
