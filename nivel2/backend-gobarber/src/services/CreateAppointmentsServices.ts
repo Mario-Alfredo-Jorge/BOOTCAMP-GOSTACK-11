@@ -10,11 +10,11 @@ interface Request {
 
 class CreateAppointmentsServices {
   public async execute({ provider, date }: Request): Promise<Appointment> {
-    const parseDate = startOfHour(date);
-
     const appointmentsRepository = await getCustomRepository(
       AppointmentsRepository,
     );
+
+    const parseDate = startOfHour(date);
 
     const findAppointmentInTheSameDate = await appointmentsRepository.findByDate(
       parseDate,
