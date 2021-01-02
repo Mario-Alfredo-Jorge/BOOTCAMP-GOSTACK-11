@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
+import AppError from '../Errors/AppError';
 import Users from '../models/Users';
 
 interface Request {
@@ -17,8 +18,9 @@ class CreateUsersServices {
     });
 
     if (checkUserExits) {
-      throw new Error(
+      throw new AppError(
         'The email is already used by another user, try with other email',
+        401,
       );
     }
 
