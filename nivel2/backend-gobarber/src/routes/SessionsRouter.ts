@@ -9,7 +9,7 @@ UsersRouter.post('/', async (req, res) => {
 
     const authenticateUser = new AuthenticateUserServices();
 
-    const { user } = await authenticateUser.execute({
+    const { user, token } = await authenticateUser.execute({
       email,
       password,
     });
@@ -17,7 +17,7 @@ UsersRouter.post('/', async (req, res) => {
     // @ts-expect-error will be any error in the next line  without this commentary
     delete user.password;
 
-    return res.json(user);
+    return res.json({ user, token });
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }
