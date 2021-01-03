@@ -27,6 +27,7 @@
     "camelcase": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePatter": ["err", "req", "res", "next"] }],
     "import/extensions": [
       "error",
       "ignorePackages",
